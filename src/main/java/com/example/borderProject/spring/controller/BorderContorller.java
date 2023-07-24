@@ -18,6 +18,7 @@ public class BorderContorller {
     public BoardResult findAll() {
         System.out.println(">????>>>>>>");
         System.out.println("으앙");
+        System.out.println("으앙3");
         BoardResult result = boardService.findBoards();
         System.out.println(result);
         return result;
