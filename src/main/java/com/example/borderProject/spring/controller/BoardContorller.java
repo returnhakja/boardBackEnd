@@ -8,8 +8,11 @@ import com.example.borderProject.spring.result.BoardIdResult;
 import com.example.borderProject.spring.result.BoardResult;
 import com.example.borderProject.spring.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,7 +32,7 @@ public class BoardContorller {
 
     // 한개 조회
     @GetMapping(value = "/{boardId}")
-    public BoardIdResult findByBoardId(@PathVariable(name = "boardId")int boardId){
+    public BoardIdResult findByBoardId(@PathVariable(name = "boardId")Long boardId){
         System.out.println(boardId);
         BoardIdResult result = boardService.findBoardId(boardId);
         System.out.println(result);
@@ -46,15 +49,21 @@ public class BoardContorller {
 
     //삭제
     @PutMapping(value = "{boardId}")
-    public void deleteByBoardId(@PathVariable(name = "boardId") int boardId){
+    public void deleteByBoardId(@PathVariable(name = "boardId") Long boardId){
         System.out.println(boardId);
         boardService.deleteBoard(boardId);
     }
-
+    // 다중 삭제
+    @PutMapping(value = "/delete")
+    public List<Long> deleteBoards(@RequestBody List<Long> boardIdxArray){
+        System.out.println(boardIdxArray);
+        boardService.deleteBoards(boardIdxArray);
+        return null;
+    }
 
     //수정
     @PutMapping
-    public int updateCalByBoardId(@RequestBody @Validated BoardDTO requestDTO) {
+    public Long updateCalByBoardId(@RequestBody @Validated BoardDTO requestDTO) {
         System.out.println(requestDTO);
         boardService.updateByBoard(requestDTO);
         return requestDTO.getBoardId();

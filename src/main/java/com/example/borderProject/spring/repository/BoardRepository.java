@@ -8,7 +8,7 @@ import java.util.List;
 public interface BoardRepository extends JpaRepository<Board, Long> {
     public List<Board> findAll();
 
-    public Board findByBoardId(int boardId);
+    public Board findByBoardId(Long boardId);
 
     public Board deleteByBoardId(Board board);
 }

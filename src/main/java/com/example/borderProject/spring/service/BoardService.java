@@ -9,6 +9,7 @@ import com.example.borderProject.spring.result.BoardResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -33,7 +34,7 @@ public class BoardService {
         return result;
     }
 
-    public BoardIdResult findBoardId(int boardId) {
+    public BoardIdResult findBoardId(Long boardId) {
 
         Board boardEntity = boardRepository.findByBoardId(boardId);
         BoardDTO boardInfo = new BoardDTO(boardEntity);
@@ -54,7 +55,7 @@ public class BoardService {
     }
 
     @Transactional
-    public void deleteBoard(int BoardId){
+    public void deleteBoard(Long BoardId){
         Board boardEntity = boardRepository.findByBoardId(BoardId);
         boardEntity.setUseYn("n");
         boardEntity.setUpdateTime(LocalDateTime.now());
@@ -62,7 +63,16 @@ public class BoardService {
     }
 
     @Transactional
-    public int updateByBoard(BoardDTO requestDTO){
+    public void deleteBoards(List<Long> boardIdxArray){
+        System.out.println(boardIdxArray);
+        for(Long boardId : boardIdxArray){
+            Board boardEntity = boardRepository.findByBoardId(boardId);
+            boardEntity.setUseYn("n");
+            boardEntity.setUpdateTime(LocalDateTime.now());
+        }
+    }
+    @Transactional
+    public Long updateByBoard(BoardDTO requestDTO){
         Board board = boardRepository.findByBoardId(requestDTO.getBoardId());
         board.updateCal(requestDTO);
         return requestDTO.getBoardId();
