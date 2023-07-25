@@ -1,6 +1,6 @@
 package com.example.borderProject.spring.entity;
 
-import com.example.borderProject.spring.dto.BorderDTO;
+import com.example.borderProject.spring.dto.BoardDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "board")
-public class Border {
+public class Board {
     @Id
     @Column(name = "board_id")
-    @GeneratedValue
-    private Long boardId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int boardId;
 
     @Column(name = "title")
     private String title;
@@ -30,9 +30,11 @@ public class Border {
     private LocalDateTime createTime;
 
     @Column(name = "modified_date")
+    @Setter
     private LocalDateTime updateTime;
 
     @Column(name = "useYn")
+    @Setter
     private String useYn;
 
     @Column(name = "writer")
@@ -40,23 +42,24 @@ public class Border {
     private String writer;
 
     //== 생성 메서드 ==//
-    public static Border createNote(String title, String content, String writer) {
+    public static Board createNote(String title, String content, String writer) {
         LocalDateTime now = LocalDateTime.now();
 
-        return Border.builder()
+        return Board.builder()
                 .title(title)
                 .content(content)
                 .createTime(now)
                 .updateTime(null)
-                .useYn("Y")
+                .useYn("y")
                 .writer(writer)
                 .build();
     }
 
 
-    public void updateCal(BorderDTO borderDTO) {
-        this.title = borderDTO.getBorderTitle();
-        this.content = borderDTO.getContent();
+    public void updateCal(BoardDTO BoardDTO) {
+        this.title = BoardDTO.getBoardTitle();
+        this.content = BoardDTO.getContent();
+        this.useYn = "y";
         this.updateTime = LocalDateTime.now();
 
     }

@@ -1,6 +1,6 @@
 package com.example.borderProject.spring.dto;
 
-import com.example.borderProject.spring.entity.Border;
+import com.example.borderProject.spring.entity.Board;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,11 +14,11 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BorderDTO {
-    private Long borderId;
-    private String borderTitle;
+public class BoardDTO {
+    private int boardId;
+    private String boardTitle;
 
-    private String borderWriter;
+    private String boardWriter;
     private String content;
 
     private String useYn;
@@ -30,14 +30,14 @@ public class BorderDTO {
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime boardUpdateTime;
 
-public BorderDTO(Border border){
-    this.borderId = border.getBoardId();
-    this.borderTitle = border.getTitle();
-    this.borderWriter = border.getWriter();
-    this.content = border.getContent();
-    this.useYn = border.getUseYn();
-    this.boardCreateTime = border.getCreateTime();
-    this.boardUpdateTime = border.getUpdateTime();
+public BoardDTO(Board Board){
+    this.boardId = Board.getBoardId();
+    this.boardTitle = Board.getTitle();
+    this.boardWriter = Board.getWriter();
+    this.content = Board.getContent();
+    this.useYn = Board.getUseYn();
+    this.boardCreateTime = Board.getCreateTime();
+    this.boardUpdateTime = Board.getUpdateTime();
 }
 
 }
